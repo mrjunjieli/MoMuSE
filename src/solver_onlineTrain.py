@@ -149,7 +149,7 @@ class Solver(object):
 
         self.accu_count = 0
         self.optimizer.zero_grad()
-        for i, (a_mix,a_tgt,v_tgt,speaker,mask_type,ratio) in enumerate(data_loader):
+        for i, (a_mix,a_tgt,v_tgt,speaker) in enumerate(data_loader):
             a_mix = a_mix.cuda().squeeze(0).float()
             a_tgt = a_tgt.cuda().squeeze(0).float()
             v_tgt = v_tgt.cuda().squeeze(0).float()

@@ -1,7 +1,7 @@
 import argparse
 import torch
 import os
-from MuSE_online.model import muse 
+from MoMuSE.model import muse 
 from pystoi import stoi
 from pesq import pesq
 import sys 
@@ -26,7 +26,8 @@ def main(args):
                         args.C, 800,causal=False)
 
     model = model.cuda()
-    pretrained_model = torch.load('%s/model_dict_best.pt' % args.continue_from, map_location='cpu')['model']
+    # pretrained_model = torch.load('%s/model_dict_best.pt' % args.continue_from, map_location='cpu')['model']
+    pretrained_model = torch.load('%s' % args.continue_from, map_location='cpu')['model']
     state = model.state_dict()
     for key in state.keys():
         pretrain_key = key
@@ -184,8 +185,8 @@ if __name__ == '__main__':
     parser.add_argument('--video_path2', type=str, default='/mntcephfs/lee_dataset/separation/voxceleb2/mp4/test/id04570/pU1bFXTpgPM/00332.mp4', help='path of vidoe data')
     parser.add_argument('--audio_path2', type=str, default='/mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04570/pU1bFXTpgPM/00332.wav', help='path of vidoe data')
 
-    parser.add_argument('--continue_from', type=str, default='./logs/Online_MuSE_mask_pre_0.05penalty_finetune2024-02-21(15:57:40)/')
-    
+    # parser.add_argument('--continue_from', type=str, default='./logs/MoMuSE_mask_pre_0.05penalty_finetune2024-02-21(15:57:40)/')
+    parser.add_argument('--continue_from', type=str, default='../Checkpoint/MoMuSE.pt')
 
     parser.add_argument('--save_dir', default='./save_audio/', type=str,
                         help='audio_save_path')

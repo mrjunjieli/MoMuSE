@@ -3,7 +3,7 @@
 export PATH=$PWD:$PATH
 export PYTHONPATH=$PWD:$PYTHONPATH
 
-gpu_id='0,1'
+gpu_id='0'
 continue_from=
 if [ -z ${continue_from} ]; then
 	log_name='MoMuSE'$(date '+%Y-%m-%d(%H:%M:%S)')
@@ -15,7 +15,7 @@ fi
 CUDA_VISIBLE_DEVICES="$gpu_id" \
 python -W ignore \
 -m torch.distributed.launch \
---nproc_per_node=2 \
+--nproc_per_node=1 \
 --master_port=3096 \
 main.py \
 \
@@ -28,21 +28,9 @@ main.py \
 --epochs 100 \
 --max_length 6 \
 --accu_grad 0 \
---batch_size 6 \
+--batch_size 1 \
 --num_workers 6 \
 --use_tensorboard 1 \
 --lr 1e-4 \
->logs/$log_name/console2.log 
+>logs/$log_name/console1.log 
 # --continue_from ${continue_from} \
-
-
-
-
-
-
-
-
-
-
-
-

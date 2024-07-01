@@ -37,7 +37,7 @@ def main(args):
     model = muse(args.N, args.L, args.B, args.H, args.P, args.X, args.R,
                         args.C, args.speakers,causal=False)
 
-    pretrained_model = torch.load('', map_location='cpu')['model']
+    pretrained_model = torch.load('../Checkpoint/MuSE_50th.pt', map_location='cpu')['model']
     state = model.state_dict()
     for key in state.keys():
         pretrain_key = key
@@ -46,8 +46,7 @@ def main(args):
         elif 'module.'+pretrain_key in pretrained_model.keys():
             state[key] = pretrained_model['module.'+pretrain_key]
         else:
-            if 'att' not in key:
-                print(key +' is not loaded!!') 
+            print(key +' is not loaded!!') 
     model.load_state_dict(state)
 
     if (args.distributed and args.local_rank ==0) or args.distributed == False:
