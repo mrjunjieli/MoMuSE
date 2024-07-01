@@ -32,5 +32,5 @@ main.py \
 --num_workers 6 \
 --use_tensorboard 1 \
 --lr 1e-4 \
->logs/$log_name/console1.log 
+>logs/$log_name/console.log 
 # --continue_from ${continue_from} \
