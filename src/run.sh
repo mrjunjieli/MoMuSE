@@ -28,7 +28,7 @@ main.py \
 --epochs 100 \
 --max_length 6 \
 --accu_grad 0 \
---batch_size 1 \
+--batch_size 6 \
 --num_workers 6 \
 --use_tensorboard 1 \
 --lr 1e-4 \
