@@ -121,7 +121,6 @@ class dataset(data.Dataset):
                         grayed = cv.resize(grayed, (roiSize*2,roiSize*2))
                         roi = grayed[int(roiSize-(roiSize/2)):int(roiSize+(roiSize/2)), 
                                 int(roiSize-(roiSize/2)):int(roiSize+(roiSize/2))]
-                        # if self.partition=='train':
                         if start>=mask_start and start< mask_start+mask_length:
                             if mask_type==0:
                                 roi = np.zeros_like(roi)

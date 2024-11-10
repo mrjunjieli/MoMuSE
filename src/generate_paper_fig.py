@@ -118,27 +118,31 @@ import pdb
 
 
 
-def autolabel(rects):
-    for rect in rects:
-        height = rect.get_height()
-        plt.text(rect.get_x()+rect.get_width()/2.-0.15, 1.03*height, "%.2f" % float(height))
+# def autolabel(rects):
+#     for rect in rects:
+#         height = rect.get_height()
+#         plt.text(rect.get_x()+rect.get_width()/2.-0.15, 1.03*height, "%.2f" % float(height))
                         
 
-tick_label = ['[0,1)','[1,2)','[2,3)','[3,4)','[4,∞]']
-x=np.arange(5)#柱状图在横坐标上的位置
-width=0.3
-MoMuSE=[4.20,8.41 ,8.62 ,8.89 ,8.35]
-MuSE = [1.76,6.06,7.56,8.29,8.04]
-a= plt.bar(x, MoMuSE,color='brown',width=width,label='MoMuSE')
-b= plt.bar(x+width, MuSE,color='darkorange',width=width,label='MuSE')
-autolabel(a)
-autolabel(b)
-plt.xticks(x+width/2,tick_label)#显示x坐标轴的标签,即tick_label,调整位置，使其落在两个直方图中间位置
-plt.ylabel("SI-SNR (dB)")#横坐标名字
-plt.xlabel("Impaired visual onset (second)")#横坐标名字
-plt.ylim(0,10)
-plt.show()
-plt.legend(loc = "upper left")#图例
-plt.savefig('./bar.png')
+# tick_label = ['[0,1)','[1,2)','[2,3)','[3,4)','[4,∞]']
+# x=np.arange(5)#柱状图在横坐标上的位置
+# width=0.3
+# MoMuSE=[4.20,8.41 ,8.62 ,8.89 ,8.35]
+# MuSE = [1.76,6.06,7.56,8.29,8.04]
+# a= plt.bar(x, MoMuSE,color='brown',width=width,label='MoMuSE')
+# b= plt.bar(x+width, MuSE,color='darkorange',width=width,label='MuSE')
+# autolabel(a)
+# autolabel(b)
+# plt.xticks(x+width/2,tick_label)#显示x坐标轴的标签,即tick_label,调整位置，使其落在两个直方图中间位置
+# plt.ylabel("SI-SNR (dB)")#横坐标名字
+# plt.xlabel("Impaired visual onset (second)")#横坐标名字
+# plt.ylim(0,10)
+# plt.show()
+# plt.legend(loc = "upper left")#图例
+# plt.savefig('./bar.png')
 
 
+MoMuSE_sisnr=[8.38,7.51,7.99,7.35,6.8,6.46,5.74,3.85,3.76,-0.29]
+MuSE_sisnr = [8.8,7.74,6.73,5.21,4.27,3.42,1.89,0.59,-1.78,-3.73]
+MoMuSE_wo_pe =[8.26, 7.12,7.35,6.76,6.74,6.33,5.36,4.11,3.63,-1.04]
+MoMuSE_wo_pi_pe=[7.68,6.2,6.6,6.41,6.79,5.52,5.12,3.24,4.92,1.48]

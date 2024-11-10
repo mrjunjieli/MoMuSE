@@ -1,7 +1,8 @@
 import argparse
 import torch
 import os
-from MuSE_online.model import muse 
+from MuSE.model import muse 
+# from MoMuSE.model import muse 
 from pystoi import stoi
 from pesq import pesq
 import sys 
@@ -38,15 +39,17 @@ def main(args):
             print(key +' is not loaded!!') 
     model.load_state_dict(state)
     print('load from ', args.continue_from)
-    video_path = args.video_path1    
-    audio_path = args.audio_path1
-    inf_video_path = args.video_path2
-    inf_audio_path = args.audio_path2
+    video_path = args.video_path2
+    audio_path = args.audio_path2
+    inf_video_path = args.video_path1
+    inf_audio_path = args.audio_path1
 
     tgt_audio,sr = audioread(audio_path)
     intervention_audio,sr = audioread(inf_audio_path)
-
+    # mixture, sr = audioread('/mntcephfs/lee_dataset/separation/voxceleb2/mixture/test/mix/test_test_id04478_GZQGZOmFU5U_00078_0_test_id01298_3j7WnbVzR4c_00040_2.1806386311827133_14.08.wav')
     tgt_audio, intervention_audio, mixture, _ = segmental_snr_mixer(tgt_audio,intervention_audio,0,min_option=True,target_level_lower=-35,target_level_upper=-5)
+    # audiowrite('tgt_audio.wav',tgt_audio)
+    # audiowrite('mix.wav',mixture)
     if sr != args.sampling_rate:
         mixture = librosa.resample(mixture,orig_sr=sr, target_sr=args.sampling_rate) 
     
@@ -65,7 +68,7 @@ def main(args):
             frame[int(roiSize+(roiSize/2))-5:int(roiSize+(roiSize/2)), int(roiSize-(roiSize/2)):int(roiSize+(roiSize/2)),2]=0
             frame[int(roiSize-(roiSize/2)):int(roiSize+(roiSize/2)), int(roiSize-(roiSize/2)): int(roiSize-(roiSize/2))+5,2]=0
             frame[int(roiSize-(roiSize/2)):int(roiSize+(roiSize/2)), int(roiSize+(roiSize/2))-5:int(roiSize+(roiSize/2)),2]=0
-            if id_ >=75:
+            if id_ >=25*1:
                 roi = np.zeros_like(roi)
                 frame=np.zeros_like(frame)
             roiSequence.append(roi)
@@ -77,12 +80,12 @@ def main(args):
             break
     captureObj.release()
     visual = np.asarray(roiSequence)
-
     K = args.sampling_rate//25
     length  = min(visual.shape[0],len(mixture)//K)
     mixture = mixture[0:length*K]
     tgt_audio = tgt_audio[0:length*K]
     visual = visual[0:length,...]
+    visual = (visual -0.4161)/0.1688
 
     model.eval()
     with torch.no_grad():
@@ -127,7 +130,8 @@ def main(args):
 
             v_seg = v_tgt[:,v_start:v_end,:,:] 
 
-            _, est_a_tgt_seg,spk_emb,_ = model(a_mix_seg,v_seg,spk_emb) #MoMuSE
+            # _, est_a_tgt_seg,spk_emb,_ = model(a_mix_seg,v_seg,spk_emb) #MoMuSE
+            _,est_a_tgt_seg = model(a_mix_seg,v_seg)  # MuSE
             
             # energy normilization 
             a_cache = estimate_source[:,a_start:a_end-a_duration_seg]
@@ -155,39 +159,28 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser("avConv-tasnet")
 
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04570/sESEzSlLBlY/00351.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04570/0YMGn6BI9rg/00003.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04570/zsnG6eKzOGE/00411.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04570/MEvAAvUiXdY/00133.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04570/pU1bFXTpgPM/00332.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id00061/jT6eew_nWz4/00183.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id00061/jT6eew_nWz4/00203.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id00061/cAT9aR8oFx0/00141.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id00061/bdkqfVtDZVY/00136.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id00061/bdkqfVtDZVY/00135.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id00061/ljIkW4uVVQY/00230.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id00061/ljIkW4uVVQY/00233.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id05055/2onVoeSgouI/00029.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id05055/2onVoeSgouI/00028.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04094/nZqKra_Vo2g/00381.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04094/wvHI__c6n2Y/00491.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04094/SeYATZknAgI/00185.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04094/WxHoMvYuoyg/00242.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04094/WxHoMvYuoyg/00249.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04094/C3YXUnkp9RU/00065.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04094/C3YXUnkp9RU/00068.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04232/tCiPy0q5588/00477.wav
-# /mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id07620/WATd8hqnjZE/00245.wav
+    # ('/mntcephfs/lee_dataset/separation/voxceleb2/mixture/test/mix/test_test_id08701_61Al05HARgA_00006_0_test_id01541_C29fUBtimOE_00047_6.937530228442423_14.976.wav',) 14.125800132751465
+    # ('/mntcephfs/lee_dataset/separation/voxceleb2/mixture/test/mix/test_test_id07426_gol32BfUJh4_00155_0_test_id07354_DPDPVItsdg8_00138_5.981796823638694_11.456.wav',) 17.007740020751953
+    # ('/mntcephfs/lee_dataset/separation/voxceleb2/mixture/test/mix/test_test_id01333_4iv48rM2Qk8_00036_0_test_id00419_w3eVBzB4AcI_00466_-0.5055948509456325_12.352.wav',) 11.522909164428711
+    # ('/mntcephfs/lee_dataset/separation/voxceleb2/mixture/test/mix/test_test_id04478_GZQGZOmFU5U_00078_0_test_id01298_3j7WnbVzR4c_00040_2.1806386311827133_14.08.wav',) 12.45551872253418
+    # ('/mntcephfs/lee_dataset/separation/voxceleb2/mixture/test/mix/test_test_id01618_p_pa0JGeT3g_00177_0_test_id00926_mpqgHcoq87w_00129_0.9086165229501635_17.344.wav',) 12.798543930053711
+    # ('/mntcephfs/lee_dataset/separation/voxceleb2/mixture/test/mix/test_test_id04950_SAyGsI0hsMU_00159_0_test_id07414_NWqZelGdBPA_00190_6.535908094880135_11.968.wav',) 13.537038803100586
+    # ('/mntcephfs/lee_dataset/separation/voxceleb2/mixture/test/mix/test_test_id01333_Qw8-jKhzwEg_00201_0_test_id06692_9vs0zAHfI0M_00149_5.724163515874711_12.096.wav',) 17.133071899414062
+    # ('/mntcephfs/lee_dataset/separation/voxceleb2/mixture/test/mix/test_test_id03030_xwcuW7hrVgg_00331_0_test_id07620_axaQeZdVOgM_00350_-5.873834020974289_14.208.wav',) 10.029067993164062
+    # ('/mntcephfs/lee_dataset/separation/voxceleb2/mixture/test/mix/test_test_id01298_wGQIqoQNXxA_00426_0_test_id04570_3s7mF3vF2QQ_00033_-0.5379086945830274_14.4.wav',) 13.196396827697754
     
-    parser.add_argument('--video_path1', type=str, default='/mntcephfs/lee_dataset/separation/voxceleb2/mp4/test/id07620/WATd8hqnjZE/00245.mp4', help='path of vidoe data')
-    parser.add_argument('--audio_path1', type=str, default='/mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id07620/WATd8hqnjZE/00245.wav', help='path of vidoe data')
-    parser.add_argument('--video_path2', type=str, default='/mntcephfs/lee_dataset/separation/voxceleb2/mp4/test/id04570/pU1bFXTpgPM/00332.mp4', help='path of vidoe data')
-    parser.add_argument('--audio_path2', type=str, default='/mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04570/pU1bFXTpgPM/00332.wav', help='path of vidoe data')
+    parser.add_argument('--video_path1', type=str, default='/mntcephfs/lee_dataset/separation/voxceleb2/mp4/test/id01333/X8REn1clroY/00246.mp4', help='path of vidoe data')
+    parser.add_argument('--audio_path1', type=str, default='/mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id01333/X8REn1clroY/00246.wav', help='path of vidoe data')
+    # parser.add_argument('--audio_path1', type=str, default='/mntcephfs/lee_dataset/separation/voxceleb2/mixture/test/s1/test_test_id01618_p_pa0JGeT3g_00177_0_test_id00926_mpqgHcoq87w_00129_0.9086165229501635_17.344.wav', help='path of vidoe data')
+    parser.add_argument('--video_path2', type=str, default='/mntcephfs/lee_dataset/separation/voxceleb2/mp4/test/id04253/yh7acTe-vnA/00326.mp4', help='path of vidoe data')
+    parser.add_argument('--audio_path2', type=str, default='/mntcephfs/lee_dataset/separation/voxceleb2/wav/test/id04253/yh7acTe-vnA/00326.wav', help='path of vidoe data')
+    # parser.add_argument('--audio_path2', type=str, default='/mntcephfs/lee_dataset/separation/voxceleb2/mixture/test/s2/test_test_id01618_p_pa0JGeT3g_00177_0_test_id00926_mpqgHcoq87w_00129_0.9086165229501635_17.344.wav', help='path of vidoe data')
 
-    parser.add_argument('--continue_from', type=str, default='./logs/Online_MuSE_mask_pre_0.05penalty_finetune2024-02-21(15:57:40)/')
+    # parser.add_argument('--continue_from', type=str, default='./logs/Online_MuSE_mask_pre_0.05penalty_finetune2024-02-21(15:57:40)/')
+    parser.add_argument('--continue_from', type=str, default='./logs/MuSE_mask2024-02-15(19:11:19)/')
     
 
-    parser.add_argument('--save_dir', default='./save_audio/', type=str,
+    parser.add_argument('--save_dir', default='./save_audio_MUSE2/', type=str,
                         help='audio_save_path')
 
     # Model hyperparameters

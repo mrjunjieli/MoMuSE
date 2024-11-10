@@ -1,9 +1,9 @@
 import argparse
 import torch
 import os
-# from MuSE.model import muse
 # from MuSE_causal.model import muse 
-from MuSE_online.model import muse 
+from MoMuSE.model import muse 
+# from MuSE.model import muse 
 from pystoi import stoi
 from pesq import pesq
 import sys 
@@ -76,9 +76,9 @@ class dataset(data.Dataset):
         mask_start = int(line.split(',')[c*3+10])
         mask_length = int(line.split(',')[c*3+11])
         mask_type = int(line.split(',')[c*3 +12]) #0:full_mask 1: occluded 2: low resolution 
-        # mask_start= 3*25
+        # mask_start= 25
         # mask_length = np.inf
-        # mask_type = 0 
+        mask_type = 0 
 
         visual_path=self.visual_direc + line.split(',')[1+c*4]+'/'+line.split(',')[2+c*4]+'/'+line.split(',')[3+c*4]+'.mp4'
         captureObj = cv.VideoCapture(visual_path)
@@ -121,8 +121,7 @@ class dataset(data.Dataset):
         visual = (visual -self.normMean)/self.normStd
         if visual.shape[0]<int(min_length_tim*self.fps):
             visual = np.pad(visual, ((0, int(min_length_tim*self.fps) - visual.shape[0]), (0,0), (0,0)), mode = 'edge')
-
-        return mixture, audio, visual,round(mask_length/visual_length,2), mask_type,mask_start/25
+        return mixture, audio, visual,round(mask_length/visual_length,2), mask_type,mask_start/25,mixture_path,min_length_tim
 
     def __len__(self):
         return len(self.mix_lst)
@@ -169,19 +168,19 @@ def main(args):
         avg_stoi = [[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]]]
 
 
-        audio_length_sisnr=[[],[],[],[],[]]#4-8s,8-12s,12-16s,16-20s,20-infs
+        audio_length_sisnr=[[],[],[],[],[]]#0-5s,5-10s,10-15s,15-20s,20-infs
 
         #audio
         a_chunk_samples = int(args.chunk_time* args.sampling_rate)
         
-         = int(args.recep_field* args.sampling_rate)
+        a_receptive_samples = int(args.recep_field* args.sampling_rate)
         #video 
         v_chunk_samples = int(args.chunk_time* 25)
         v_receptive_samples = int(args.recep_field* 25)
         #init 
         initilization_samples = min(int(args.initilization*args.sampling_rate),a_receptive_samples)
 
-        for i, (a_mix, a_tgt, v_tgt,mask_ratio,mask_type,mask_start) in enumerate(tqdm.tqdm(test_generator)):
+        for i, (a_mix, a_tgt, v_tgt,mask_ratio,mask_type,mask_start,mixture_path,min_length_tim) in enumerate(tqdm.tqdm(test_generator)):
             if mask_ratio==1:
                 mask_ratio -=0.01
             # mask_ratio=0
@@ -241,13 +240,13 @@ def main(args):
                 mask_start=4
             mask_start_sisnr[int(mask_start)].append(sisnr)
 
-            if v_tgt.shape[1]//25>=4 and v_tgt.shape[1]//25<8:
+            if v_tgt.shape[1]//25>=0 and v_tgt.shape[1]//25<5:
                 audio_length_sisnr[0].append(sisnr)
-            elif v_tgt.shape[1]//25>=8 and v_tgt.shape[1]//25<12:
+            elif v_tgt.shape[1]//25>=5 and v_tgt.shape[1]//25<10:
                 audio_length_sisnr[1].append(sisnr)
-            elif v_tgt.shape[1]//25>=12 and v_tgt.shape[1]//25<16:
+            elif v_tgt.shape[1]//25>=10 and v_tgt.shape[1]//25<15:
                 audio_length_sisnr[2].append(sisnr)
-            elif v_tgt.shape[1]//25>=16 and v_tgt.shape[1]//25<20:
+            elif v_tgt.shape[1]//25>=15 and v_tgt.shape[1]//25<20:
                 audio_length_sisnr[3].append(sisnr)
             else:
                 audio_length_sisnr[4].append(sisnr)
@@ -256,21 +255,23 @@ def main(args):
             a_tgt = a_tgt.squeeze().cpu().numpy()
             a_mix = a_mix.squeeze().cpu().numpy()
             
-            sdr = fast_bss_eval.sdr(np.expand_dims(a_tgt,0),np.expand_dims(estimate_source,0))[0]
-            pesq_ = pesq(16000, a_tgt, estimate_source, 'wb')
-            stoi_ = stoi(a_tgt, estimate_source, 16000, extended=False)
+            # sdr = fast_bss_eval.sdr(np.expand_dims(a_tgt,0),np.expand_dims(estimate_source,0))[0]
+            # pesq_ = pesq(16000, a_tgt, estimate_source, 'wb')
+            # stoi_ = stoi(a_tgt, estimate_source, 16000, extended=False)
+
+            sdr=0
+            pesq_=0
+            stoi_=0
 
             avg_sdr[int(mask_ratio*10)][int(mask_type)].append(sdr)
             avg_pesq[int(mask_ratio*10)][int(mask_type)].append(pesq_)
             avg_stoi[int(mask_ratio*10)][int(mask_type)].append(stoi_)
-
             if args.save:
                 if not os.path.exists(args.save_dir):
                     os.makedirs(args.save_dir)
                 audiowrite(str(args.save_dir)+'/'+'s_%d_mix.wav'%i,a_mix)
                 audiowrite(str(args.save_dir)+'/'+'s_%d_tgt.wav'%i,a_tgt)
                 audiowrite(str(args.save_dir)+'/'+'s_%d_est_%.2f.wav'%(i,sisnr),estimate_source)
-        
         
         print('--------------')
         mask_type_dict = {0:'full_mask     ',1:'lip_occlude   ',2:'low_resolution'}
@@ -318,9 +319,9 @@ def main(args):
 
         for i in range(5):
             if i!=4:
-                print('Audio_length:['+str(i*4+4)+','+str(((i+1)*4+4))+')',round(np.mean(audio_length_sisnr[i]),2))
+                print('Audio_length:['+str(i*5)+','+str(((i+1)*5))+')',round(np.mean(audio_length_sisnr[i]),2))
             else:
-                print('Audio_length:['+str(i*4+4)+','+'∞)',round(np.mean(audio_length_sisnr[i]),2))
+                print('Audio_length:['+str(i*5)+','+'∞)',round(np.mean(audio_length_sisnr[i]),2))
 
 
 if __name__ == '__main__':
@@ -333,12 +334,12 @@ if __name__ == '__main__':
                         help='directory including test data')
     parser.add_argument('--mixture_direc', type=str, default='/mntcephfs/lee_dataset/separation/voxceleb2/mixture/',
                         help='directory of audio')
-    # parser.add_argument('--continue_from', type=str, default='./logs/MuSE_mask2024-02-15(19:11:19)/')
-    # 
     parser.add_argument('--continue_from', type=str, default='./logs/Online_MuSE_mask_pre_0.05penalty_finetune2024-02-21(15:57:40)/')
+    # parser.add_argument('--continue_from', type=str, default='./logs/Online_MuSE_mask_pre_end2end2024-02-17(19:11:16)/')
+    # parser.add_argument('--continue_from', type=str, default='./logs/MuSE_mask2024-02-15(19:11:19)/')
     
     
-    parser.add_argument('--save', default=0, type=int,
+    parser.add_argument('--save', default=1, type=int,
                         help='whether to save audio')
     parser.add_argument('--save_dir', default='./save_audio/', type=str,
                         help='audio_save_path')

@@ -10,6 +10,16 @@ from tools import cal_SISNR
 import copy
 import numpy as np 
 from apex import amp
+import random 
+import numpy as np 
+from copy import deepcopy
+import  sys 
+sys.path.append("/mntnfs/lee_data1/lijunjie/MoMuSE/src/")
+from MuSE.pretrain_networks.visual_frontend import VisualFrontend
+import torch.nn.functional as F
+from tools import audioread, audiowrite
+import cv2 
+import os 
 
 
 EPS = np.finfo(float).eps
@@ -23,6 +33,7 @@ class Solver(object):
         self.args = args
         self.amp = amp 
         self.ae_loss = nn.CrossEntropyLoss()
+        self.v_loss = nn.MSELoss()
 
         self.print = False
         if (self.args.distributed and self.args.local_rank ==0) or not self.args.distributed:
@@ -143,27 +154,52 @@ class Solver(object):
         step=0
         total_step = len(data_loader)
         total_loss = 0
+        total_v_loss = 0
 
         self.accu_count = 0
         self.optimizer.zero_grad()
-        for i, (a_mix,a_tgt,v_tgt,speaker) in enumerate(data_loader):
+        for i, (a_mix,a_tgt,v_tgt,speaker,v_tgt_tgt) in enumerate(data_loader):
             a_mix = a_mix.cuda().squeeze(0).float()
             a_tgt = a_tgt.cuda().squeeze(0).float()
             v_tgt = v_tgt.cuda().squeeze(0).float()
             speaker = speaker.cuda().squeeze()
+            v_tgt_tgt_ = v_tgt_tgt.cuda().squeeze(0).float()
 
-            est_speaker, est_a_tgt = self.model(a_mix, v_tgt)
+            # est_speaker, est_a_tgt = self.model(a_mix, v_tgt)
+            est_a_tgt, v_reconstruct,v_tgt_tgt = self.model(a_mix, v_tgt,v_tgt_tgt_)
+            est_a_tgt = est_a_tgt/torch.max(torch.abs(est_a_tgt))
+            # pdb.set_trace()
+            for d in range(a_mix.shape[0]):
+                for k in range(v_tgt.shape[1]):
+                    os.makedirs('save_img'+'/'+'Itgt_%d/'%d,exist_ok = True)
+                    os.makedirs('save_img'+'/'+'I_%d/'%d,exist_ok = True)
+                    cv2.imwrite('save_img'+'/'+'I_%d/I_%d.png'%(d,k), int(v_tgt[d][k].detach().cpu().numpy())*255)
+                    cv2.imwrite('save_img'+'/'+'Itgt_%d/I_%d.png'%(d,k), int(v_tgt_tgt_[d][k].detach().cpu().numpy())*255)
+                audiowrite('save_audio'+'/'+'s_%d_mix.wav'%d,a_mix[d].detach().cpu().numpy())
+                audiowrite('save_audio'+'/'+'s_%d_tgt.wav'%d,a_tgt[d].detach().cpu().numpy())
+                audiowrite('save_audio'+'/'+'s_%d_esttgt.wav'%d,est_a_tgt[d].detach().cpu().numpy())
+            pdb.set_trace()
             max_snr = cal_SISNR(a_tgt, est_a_tgt)
+
+            v_tgt_tgt = v_tgt_tgt.transpose(0,1)
+            v_tgt_tgt = v_tgt_tgt.transpose(2,1)
+
                 
             sisnr_loss = 0 - torch.mean(max_snr)
-            speaker_loss = self.ae_loss(est_speaker[0], speaker) + \
-                            self.ae_loss(est_speaker[1], speaker) + \
-                            self.ae_loss(est_speaker[2], speaker) + \
-                            self.ae_loss(est_speaker[3], speaker)
+            # speaker_loss = self.ae_loss(est_speaker[0], speaker) + \
+            #                 self.ae_loss(est_speaker[1], speaker) + \
+            #                 self.ae_loss(est_speaker[2], speaker) + \
+            #                 self.ae_loss(est_speaker[3], speaker)
             if state =='train':
+                v_loss = 0
+                for k in range(len(v_reconstruct)):
+                    v_out = v_reconstruct[k]
+                    v_out = F.pad(v_out,(0,v_tgt_tgt.size(2)-v_out.size(2)))
+                    v_loss += self.v_loss(v_out, v_tgt_tgt)
                 
                 self.accu_count += 1
-                loss = sisnr_loss + 0.1* speaker_loss 
+                # loss = sisnr_loss + 0.1* speaker_loss 
+                loss = sisnr_loss + v_loss
                 step+=1
                 total_loss+=loss.data
 
@@ -191,6 +227,8 @@ class Solver(object):
                 step+=1
                 loss = sisnr_loss 
                 total_loss+=loss.data
+
+            
 
         return total_loss / (i+1)
 

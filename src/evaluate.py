@@ -1,8 +1,8 @@
 import argparse
 import torch
 import os
-# from MuSE.model import muse
-from MuSE_causal.model import muse 
+from MuSE.model import muse
+# from MuSE_causal.model import muse 
 from pystoi import stoi
 from pesq import pesq
 import sys 
@@ -88,23 +88,23 @@ class dataset(data.Dataset):
                 grayed = cv.resize(grayed, (roiSize*2,roiSize*2))
                 roi = grayed[int(roiSize-(roiSize/2)):int(roiSize+(roiSize/2)), 
                         int(roiSize-(roiSize/2)):int(roiSize+(roiSize/2))]
-                if start>=mask_start and start< mask_start+mask_length:
-                    if mask_type==0:
-                        roi = np.zeros_like(roi)
-                    elif mask_type==1:
-                        noise_occlude = np.random.normal(0.5,0.5,(roiSize//2,roiSize//2))
-                        noise_occlude = np.clip(noise_occlude,0,1)
-                        roi[roiSize//8*3:roiSize//8*3+roiSize//2,roiSize//4:roiSize//4+roiSize//2] = 0
-                        roi[roiSize//8*3:roiSize//8*3+roiSize//2,roiSize//4:roiSize//4+roiSize//2] += noise_occlude
-                    elif mask_type==2:
-                        if self.partition=='train':
-                            times = int(np.random.uniform(5,15))
-                        else:
-                            times = 10
-                        roi =  cv.resize(roi, (roiSize //times, roiSize //times))
-                        roi = cv.resize(roi, (roiSize , roiSize))
-                    else:
-                        sys.exit('error: no mask_type ',mask_type)
+                # if start>=mask_start and start< mask_start+mask_length:
+                #     if mask_type==0:
+                #         roi = np.zeros_like(roi)
+                #     elif mask_type==1:
+                #         noise_occlude = np.random.normal(0.5,0.5,(roiSize//2,roiSize//2))
+                #         noise_occlude = np.clip(noise_occlude,0,1)
+                #         roi[roiSize//8*3:roiSize//8*3+roiSize//2,roiSize//4:roiSize//4+roiSize//2] = 0
+                #         roi[roiSize//8*3:roiSize//8*3+roiSize//2,roiSize//4:roiSize//4+roiSize//2] += noise_occlude
+                #     elif mask_type==2:
+                #         if self.partition=='train':
+                #             times = int(np.random.uniform(5,15))
+                #         else:
+                #             times = 10
+                #         roi =  cv.resize(roi, (roiSize //times, roiSize //times))
+                #         roi = cv.resize(roi, (roiSize , roiSize))
+                #     else:
+                #         sys.exit('error: no mask_type ',mask_type)
                 roiSequence.append(roi)
                 start += 1
             else:
@@ -166,11 +166,19 @@ def main(args):
             a_tgt = a_tgt.cuda().squeeze().float().unsqueeze(0)
             v_tgt = v_tgt.cuda().squeeze().float().unsqueeze(0)
 
+            pdb.set_trace()
+            # tmp = v_tgt[:,0,:,:].unsqueeze(1)
+            # tmp = tmp[0].cpu().numpy()*255
+            # cv.imwrite('./image.png', tmp.transpose(2,1,0))
+            
+            # temp = tmp.repeat(1,v_tgt.shape[1],1,1)
+            # v_tgt = temp 
+
             est_speaker, estimate_source = model(a_mix, v_tgt)
 
-            if mask_ratio==1:
-                mask_ratio -=0.01
-            # mask_ratio=0
+            # if mask_ratio==1:
+            #     mask_ratio -=0.01
+            mask_ratio=0
 
             sisnr = cal_SISNR(a_tgt, estimate_source).item()
             avg_sisnr[int(mask_ratio*10)][int(mask_type)].append(sisnr)
@@ -243,7 +251,8 @@ if __name__ == '__main__':
                         help='directory including test data')
     parser.add_argument('--mixture_direc', type=str, default='/mntcephfs/lee_dataset/separation/voxceleb2/mixture/',
                         help='directory of audio')
-    parser.add_argument('--continue_from', type=str, default='./logs/MuSE_Causal2024-02-18(09:06:29)/')
+    # parser.add_argument('--continue_from', type=str, default='./logs/MuSE_Causal2024-02-18(09:06:29)/')
+    parser.add_argument('--continue_from', type=str, default='./logs/MuSE_mask_causal2024-02-15(23:09:43)/')
     
     parser.add_argument('--save', default=0, type=int,
                         help='whether to save audio')

@@ -3,11 +3,14 @@ import torch
 from dataload import get_dataloader
 import os
 # from MuSE.model import muse
+from ImagineNet.model import imagineNet
 # from MuSE_causal.model import muse
 # from solver import Solver
 
-from MoMuSE.model import muse 
-from solver_onlineTrain import Solver
+# from MoMuSE.model import muse 
+from solver import Solver
+# from solver_onlineTrain import Solver
+
 
 
 def main(args):
@@ -34,21 +37,24 @@ def main(args):
     args.speakers=len(speaker_dict)
 
     # Model
-    model = muse(args.N, args.L, args.B, args.H, args.P, args.X, args.R,
-                        args.C, args.speakers,causal=False)
+    # model = muse(args.N, args.L, args.B, args.H, args.P, args.X, args.R,
+    #                     args.C, args.speakers,causal=False)
+    model = imagineNet(args.N, args.L, args.B, args.H, args.P, args.X, args.R,
+                        args.C,256)
 
-    pretrained_model = torch.load('', map_location='cpu')['model']
-    state = model.state_dict()
-    for key in state.keys():
-        pretrain_key = key
-        if pretrain_key in pretrained_model.keys():
-            state[key] = pretrained_model[pretrain_key]
-        elif 'module.'+pretrain_key in pretrained_model.keys():
-            state[key] = pretrained_model['module.'+pretrain_key]
-        else:
-            if 'att' not in key:
-                print(key +' is not loaded!!') 
-    model.load_state_dict(state)
+    # Load a pretrained model from 50th checkpoint of MuSE
+    # pretrained_model = torch.load('', map_location='cpu')['model']
+    # state = model.state_dict()
+    # for key in state.keys():
+    #     pretrain_key = key
+    #     if pretrain_key in pretrained_model.keys():
+    #         state[key] = pretrained_model[pretrain_key]
+    #     elif 'module.'+pretrain_key in pretrained_model.keys():
+    #         state[key] = pretrained_model['module.'+pretrain_key]
+    #     else:
+    #         if 'att' not in key:
+    #             print(key +' is not loaded!!') 
+    # model.load_state_dict(state)
 
     if (args.distributed and args.local_rank ==0) or args.distributed == False:
         print("started on " + args.log_name + '\n')

@@ -6,5 +6,4 @@
 3. Checkpoint: https://drive.google.com/drive/folders/1uScU7r46VIkl6SNE-gS7bogj6RCiyhg8?usp=drive_link
 
 
-
-Contact Email: mrjunjieli@tju.edu.cn 
+Contact Email: junjie98.li@connect.polyu.hk
