@@ -1,0 +1,1389 @@
+started on Online_MuSE_mask_pre_0.05penalty_finetune2024-02-21(15:57:40)
+
+Namespace(mix_lst_path='../data_preparation/mixture_data_list_2mix_with_occludded.csv', visual_direc='/mntcephfs/lee_dataset/separation/voxceleb2/mp4/', mixture_direc='/mntcephfs/lee_dataset/separation/voxceleb2/mixture/', batch_size=6, max_length=6, num_workers=6, epochs=100, effec_batch_size=8, accu_grad=0, L=40, N=256, B=256, C=2, H=512, P=3, X=8, R=4, lr=0.0001, max_norm=5, log_name='Online_MuSE_mask_pre_0.05penalty_finetune2024-02-21(15:57:40)', use_tensorboard=1, continue_from='', opt_level='O0', local_rank=0, keep_batchnorm_fp32=None, patch_torch_functions=None, distributed=True, world_size=2, speaker_dict={'id08108': 0, 'id07077': 1, 'id08249': 2, 'id00699': 3, 'id09016': 4, 'id06010': 5, 'id06017': 6, 'id00015': 7, 'id04526': 8, 'id02179': 9, 'id07955': 10, 'id08592': 11, 'id05480': 12, 'id06645': 13, 'id00979': 14, 'id07447': 15, 'id06496': 16, 'id08457': 17, 'id01355': 18, 'id03918': 19, 'id07970': 20, 'id04015': 21, 'id05010': 22, 'id06843': 23, 'id04219': 24, 'id07293': 25, 'id01264': 26, 'id07744': 27, 'id02455': 28, 'id07741': 29, 'id06702': 30, 'id07108': 31, 'id02102': 32, 'id07136': 33, 'id08745': 34, 'id03824': 35, 'id01457': 36, 'id08834': 37, 'id07613': 38, 'id05241': 39, 'id08241': 40, 'id07560': 41, 'id06070': 42, 'id03258': 43, 'id01764': 44, 'id03312': 45, 'id02339': 46, 'id04081': 47, 'id05913': 48, 'id08053': 49, 'id04523': 50, 'id08335': 51, 'id08546': 52, 'id08376': 53, 'id04705': 54, 'id08065': 55, 'id08041': 56, 'id04199': 57, 'id02667': 58, 'id07672': 59, 'id07357': 60, 'id03493': 61, 'id01681': 62, 'id08066': 63, 'id08704': 64, 'id02294': 65, 'id07837': 66, 'id02593': 67, 'id06362': 68, 'id01857': 69, 'id08853': 70, 'id07982': 71, 'id06203': 72, 'id04586': 73, 'id02239': 74, 'id01057': 75, 'id02343': 76, 'id03269': 77, 'id05057': 78, 'id08647': 79, 'id01056': 80, 'id08904': 81, 'id00078': 82, 'id02578': 83, 'id03942': 84, 'id03696': 85, 'id06005': 86, 'id04738': 87, 'id06617': 88, 'id01111': 89, 'id06988': 90, 'id09032': 91, 'id01840': 92, 'id06798': 93, 'id04684': 94, 'id03748': 95, 'id06239': 96, 'id00282': 97, 'id02281': 98, 'id04961': 99, 'id00943': 100, 'id01054': 101, 'id07158': 102, 'id04534': 103, 'id03502': 104, 'id02987': 105, 'id00568': 106, 'id04615': 107, 'id01648': 108, 'id06597': 109, 'id07670': 110, 'id05066': 111, 'id03445': 112, 'id08739': 113, 'id01694': 114, 'id09232': 115, 'id05710': 116, 'id07719': 117, 'id08377': 118, 'id01916': 119, 'id01570': 120, 'id05978': 121, 'id08714': 122, 'id02318': 123, 'id03994': 124, 'id06948': 125, 'id07165': 126, 'id06663': 127, 'id07164': 128, 'id08042': 129, 'id04518': 130, 'id05875': 131, 'id08569': 132, 'id05856': 133, 'id08317': 134, 'id08243': 135, 'id01286': 136, 'id06038': 137, 'id00262': 138, 'id01504': 139, 'id05935': 140, 'id01677': 141, 'id07276': 142, 'id01658': 143, 'id04221': 144, 'id05293': 145, 'id06771': 146, 'id06586': 147, 'id06323': 148, 'id03992': 149, 'id03713': 150, 'id04968': 151, 'id00076': 152, 'id06364': 153, 'id03240': 154, 'id04134': 155, 'id00187': 156, 'id08348': 157, 'id08568': 158, 'id08917': 159, 'id04257': 160, 'id02733': 161, 'id05573': 162, 'id00996': 163, 'id02438': 164, 'id05777': 165, 'id04715': 166, 'id03939': 167, 'id02214': 168, 'id04320': 169, 'id08064': 170, 'id07272': 171, 'id01225': 172, 'id06588': 173, 'id00272': 174, 'id06445': 175, 'id05907': 176, 'id01040': 177, 'id02297': 178, 'id08343': 179, 'id03199': 180, 'id00350': 181, 'id08122': 182, 'id01163': 183, 'id03522': 184, 'id08080': 185, 'id07708': 186, 'id07844': 187, 'id04988': 188, 'id03923': 189, 'id04086': 190, 'id02299': 191, 'id07800': 192, 'id02457': 193, 'id05496': 194, 'id08837': 195, 'id09033': 196, 'id07161': 197, 'id02260': 198, 'id06584': 199, 'id07349': 200, 'id06351': 201, 'id05288': 202, 'id03215': 203, 'id03334': 204, 'id01758': 205, 'id00978': 206, 'id05851': 207, 'id07351': 208, 'id08362': 209, 'id08518': 210, 'id08928': 211, 'id00062': 212, 'id08658': 213, 'id01193': 214, 'id05453': 215, 'id09051': 216, 'id00708': 217, 'id03267': 218, 'id02477': 219, 'id06507': 220, 'id01262': 221, 'id02249': 222, 'id01750': 223, 'id00741': 224, 'id07956': 225, 'id02361': 226, 'id08933': 227, 'id05832': 228, 'id06866': 229, 'id07181': 230, 'id00876': 231, 'id04537': 232, 'id00620': 233, 'id05591': 234, 'id09147': 235, 'id03430': 236, 'id00086': 237, 'id07010': 238, 'id06696': 239, 'id02116': 240, 'id09192': 241, 'id05060': 242, 'id01387': 243, 'id04538': 244, 'id03201': 245, 'id09171': 246, 'id04752': 247, 'id06360': 248, 'id08781': 249, 'id04064': 250, 'id06289': 251, 'id05664': 252, 'id02008': 253, 'id05186': 254, 'id01265': 255, 'id05998': 256, 'id06725': 257, 'id04855': 258, 'id00967': 259, 'id00513': 260, 'id00816': 261, 'id03727': 262, 'id06958': 263, 'id03755': 264, 'id04780': 265, 'id01010': 266, 'id01904': 267, 'id00942': 268, 'id02067': 269, 'id01411': 270, 'id03896': 271, 'id07623': 272, 'id05506': 273, 'id06415': 274, 'id07434': 275, 'id07856': 276, 'id05693': 277, 'id01806': 278, 'id02156': 279, 'id01713': 280, 'id05454': 281, 'id06212': 282, 'id02534': 283, 'id00806': 284, 'id01678': 285, 'id07578': 286, 'id03014': 287, 'id07145': 288, 'id06250': 289, 'id08653': 290, 'id04372': 291, 'id07236': 292, 'id06582': 293, 'id07750': 294, 'id00060': 295, 'id02015': 296, 'id05257': 297, 'id00692': 298, 'id03371': 299, 'id08289': 300, 'id01160': 301, 'id07809': 302, 'id04618': 303, 'id01906': 304, 'id08694': 305, 'id00888': 306, 'id07618': 307, 'id06986': 308, 'id05171': 309, 'id06717': 310, 'id03414': 311, 'id01746': 312, 'id00664': 313, 'id09010': 314, 'id03885': 315, 'id08993': 316, 'id08501': 317, 'id06131': 318, 'id07776': 319, 'id05165': 320, 'id08047': 321, 'id00709': 322, 'id08738': 323, 'id04358': 324, 'id05265': 325, 'id06411': 326, 'id05699': 327, 'id00891': 328, 'id07686': 329, 'id00990': 330, 'id00673': 331, 'id02495': 332, 'id04125': 333, 'id00084': 334, 'id02943': 335, 'id02980': 336, 'id07703': 337, 'id04349': 338, 'id02888': 339, 'id00159': 340, 'id08079': 341, 'id01218': 342, 'id00787': 343, 'id07178': 344, 'id08239': 345, 'id04409': 346, 'id00378': 347, 'id02873': 348, 'id05260': 349, 'id00417': 350, 'id05666': 351, 'id04284': 352, 'id09225': 353, 'id05691': 354, 'id07834': 355, 'id02075': 356, 'id05049': 357, 'id03983': 358, 'id02392': 359, 'id00258': 360, 'id04419': 361, 'id07642': 362, 'id01006': 363, 'id00385': 364, 'id03728': 365, 'id06479': 366, 'id05153': 367, 'id03028': 368, 'id03147': 369, 'id03328': 370, 'id04194': 371, 'id01859': 372, 'id02341': 373, 'id04508': 374, 'id01354': 375, 'id03118': 376, 'id06946': 377, 'id01556': 378, 'id00043': 379, 'id07535': 380, 'id03429': 381, 'id07128': 382, 'id04247': 383, 'id06114': 384, 'id03227': 385, 'id01614': 386, 'id06424': 387, 'id09269': 388, 'id02157': 389, 'id01768': 390, 'id09088': 391, 'id04742': 392, 'id04903': 393, 'id07531': 394, 'id04757': 395, 'id00680': 396, 'id03313': 397, 'id02721': 398, 'id06109': 399, 'id05738': 400, 'id05632': 401, 'id04617': 402, 'id08604': 403, 'id08573': 404, 'id06477': 405, 'id08236': 406, 'id05272': 407, 'id02760': 408, 'id09052': 409, 'id07360': 410, 'id06551': 411, 'id06414': 412, 'id08742': 413, 'id06252': 414, 'id01776': 415, 'id04842': 416, 'id03810': 417, 'id08968': 418, 'id01060': 419, 'id06196': 420, 'id04117': 421, 'id04184': 422, 'id03460': 423, 'id00191': 424, 'id01448': 425, 'id02311': 426, 'id04198': 427, 'id04458': 428, 'id05986': 429, 'id07078': 430, 'id06792': 431, 'id02817': 432, 'id04417': 433, 'id04997': 434, 'id00149': 435, 'id00462': 436, 'id01209': 437, 'id04974': 438, 'id03786': 439, 'id04644': 440, 'id02053': 441, 'id03556': 442, 'id07851': 443, 'id00944': 444, 'id03705': 445, 'id03288': 446, 'id06183': 447, 'id06432': 448, 'id04564': 449, 'id07887': 450, 'id05494': 451, 'id02653': 452, 'id09091': 453, 'id00529': 454, 'id06121': 455, 'id04229': 456, 'id06248': 457, 'id05930': 458, 'id08885': 459, 'id08953': 460, 'id05189': 461, 'id01798': 462, 'id07400': 463, 'id04655': 464, 'id03750': 465, 'id02039': 466, 'id07415': 467, 'id07974': 468, 'id05133': 469, 'id08860': 470, 'id04108': 471, 'id08334': 472, 'id04188': 473, 'id05741': 474, 'id04017': 475, 'id01659': 476, 'id06870': 477, 'id04179': 478, 'id03675': 479, 'id03733': 480, 'id01206': 481, 'id04274': 482, 'id02166': 483, 'id04160': 484, 'id03532': 485, 'id00202': 486, 'id06336': 487, 'id04486': 488, 'id03754': 489, 'id05054': 490, 'id07421': 491, 'id03247': 492, 'id08146': 493, 'id02289': 494, 'id05027': 495, 'id00168': 496, 'id00184': 497, 'id08529': 498, 'id03917': 499, 'id06944': 500, 'id01960': 501, 'id00774': 502, 'id00903': 503, 'id05554': 504, 'id00332': 505, 'id04814': 506, 'id05261': 507, 'id01100': 508, 'id01523': 509, 'id06222': 510, 'id02463': 511, 'id07556': 512, 'id00773': 513, 'id08660': 514, 'id03088': 515, 'id01317': 516, 'id04667': 517, 'id08999': 518, 'id02948': 519, 'id00788': 520, 'id05585': 521, 'id05926': 522, 'id08802': 523, 'id07624': 524, 'id07179': 525, 'id04333': 526, 'id04930': 527, 'id01539': 528, 'id08981': 529, 'id02351': 530, 'id04554': 531, 'id06062': 532, 'id08936': 533, 'id07489': 534, 'id07625': 535, 'id04404': 536, 'id05289': 537, 'id03866': 538, 'id03325': 539, 'id04195': 540, 'id00029': 541, 'id00823': 542, 'id04254': 543, 'id02017': 544, 'id04588': 545, 'id04677': 546, 'id04423': 547, 'id06952': 548, 'id02389': 549, 'id00413': 550, 'id00176': 551, 'id01101': 552, 'id00352': 553, 'id07299': 554, 'id04223': 555, 'id00976': 556, 'id03821': 557, 'id08462': 558, 'id02735': 559, 'id02739': 560, 'id07727': 561, 'id08160': 562, 'id05696': 563, 'id04488': 564, 'id00592': 565, 'id02598': 566, 'id00650': 567, 'id01754': 568, 'id00980': 569, 'id04559': 570, 'id01690': 571, 'id03351': 572, 'id04511': 573, 'id05771': 574, 'id06650': 575, 'id03768': 576, 'id02981': 577, 'id07405': 578, 'id03652': 579, 'id07186': 580, 'id03706': 581, 'id04146': 582, 'id05622': 583, 'id05401': 584, 'id07332': 585, 'id01617': 586, 'id03331': 587, 'id00266': 588, 'id02573': 589, 'id08147': 590, 'id00524': 591, 'id03274': 592, 'id07497': 593, 'id09210': 594, 'id05737': 595, 'id00494': 596, 'id03871': 597, 'id00020': 598, 'id04628': 599, 'id08919': 600, 'id08097': 601, 'id09049': 602, 'id05541': 603, 'id05286': 604, 'id06937': 605, 'id06347': 606, 'id06874': 607, 'id04784': 608, 'id06949': 609, 'id02062': 610, 'id03264': 611, 'id08049': 612, 'id04408': 613, 'id06900': 614, 'id08261': 615, 'id06140': 616, 'id05477': 617, 'id07060': 618, 'id07726': 619, 'id00353': 620, 'id05160': 621, 'id07418': 622, 'id00064': 623, 'id02724': 624, 'id04265': 625, 'id04097': 626, 'id08599': 627, 'id04133': 628, 'id00902': 629, 'id06262': 630, 'id09230': 631, 'id00469': 632, 'id08536': 633, 'id00395': 634, 'id05853': 635, 'id01931': 636, 'id02004': 637, 'id01280': 638, 'id07429': 639, 'id05916': 640, 'id02889': 641, 'id04163': 642, 'id05492': 643, 'id04654': 644, 'id04839': 645, 'id00965': 646, 'id01489': 647, 'id00558': 648, 'id08804': 649, 'id06529': 650, 'id02306': 651, 'id08311': 652, 'id04712': 653, 'id03525': 654, 'id01511': 655, 'id03336': 656, 'id00459': 657, 'id01908': 658, 'id06847': 659, 'id08983': 660, 'id03989': 661, 'id08556': 662, 'id06875': 663, 'id00185': 664, 'id02021': 665, 'id08240': 666, 'id06723': 667, 'id04869': 668, 'id01501': 669, 'id01235': 670, 'id02340': 671, 'id04582': 672, 'id06676': 673, 'id05841': 674, 'id08702': 675, 'id04517': 676, 'id02346': 677, 'id04660': 678, 'id03947': 679, 'id00724': 680, 'id00829': 681, 'id07256': 682, 'id03796': 683, 'id06541': 684, 'id07080': 685, 'id07500': 686, 'id06378': 687, 'id08323': 688, 'id05757': 689, 'id05723': 690, 'id05576': 691, 'id08278': 692, 'id04873': 693, 'id06226': 694, 'id02891': 695, 'id04856': 696, 'id05739': 697, 'id03804': 698, 'id05893': 699, 'id08002': 700, 'id01769': 701, 'id04334': 702, 'id00192': 703, 'id07043': 704, 'id08533': 705, 'id03298': 706, 'id05209': 707, 'id01689': 708, 'id07130': 709, 'id08937': 710, 'id02538': 711, 'id04031': 712, 'id01239': 713, 'id05434': 714, 'id02112': 715, 'id04782': 716, 'id06552': 717, 'id04509': 718, 'id08414': 719, 'id07344': 720, 'id05644': 721, 'id09186': 722, 'id02087': 723, 'id06355': 724, 'id04907': 725, 'id05685': 726, 'id02267': 727, 'id06138': 728, 'id04216': 729, 'id04529': 730, 'id06368': 731, 'id07046': 732, 'id04530': 733, 'id02032': 734, 'id01121': 735, 'id01927': 736, 'id05256': 737, 'id03757': 738, 'id05104': 739, 'id08600': 740, 'id05039': 741, 'id05983': 742, 'id08351': 743, 'id06016': 744, 'id04427': 745, 'id07534': 746, 'id08756': 747, 'id02979': 748, 'id03945': 749, 'id04128': 750, 'id04222': 751, 'id06673': 752, 'id07050': 753, 'id00255': 754, 'id05471': 755, 'id05141': 756, 'id04027': 757, 'id08525': 758, 'id04266': 759, 'id05989': 760, 'id01827': 761, 'id02270': 762, 'id03242': 763, 'id01223': 764, 'id09048': 765, 'id03207': 766, 'id01098': 767, 'id04224': 768, 'id07175': 769, 'id03877': 770, 'id00755': 771, 'id04151': 772, 'id00022': 773, 'id08022': 774, 'id02384': 775, 'id06474': 776, 'id04716': 777, 'id04560': 778, 'id02040': 779, 'id02437': 780, 'id00911': 781, 'id03931': 782, 'id03527': 783, 'id01315': 784, 'id03820': 785, 'id03352': 786, 'id02150': 787, 'id00752': 788, 'id07980': 789, 'id07341': 790, 'id01639': 791, 'id03304': 792, 'id04589': 793, 'id02252': 794, 'id08477': 795, 'id07954': 796, 'id03907': 797, 'id04300': 798, 'id06905': 799}, speakers=800)
+
+Total number of parameters: 27251877 
+
+muse(
+  (encoder): Encoder(
+    (conv1d_U): Conv1d(1, 256, kernel_size=(40,), stride=(20,), bias=False)
+  )
+  (separator): TemporalConvNet(
+    (layer_norm): ChannelWiseLayerNorm((256,), eps=1e-05, elementwise_affine=True)
+    (bottleneck_conv1x1): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+    (tcn): ModuleList(
+      (0): Sequential(
+        (0): Conv1d(768, 256, kernel_size=(1,), stride=(1,), bias=False)
+        (1): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (2): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (3): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(4,), dilation=(4,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (4): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(8,), dilation=(8,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (5): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(16,), dilation=(16,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (6): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(32,), dilation=(32,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (7): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(64,), dilation=(64,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (8): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(128,), dilation=(128,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+      )
+      (1): Sequential(
+        (0): Conv1d(768, 256, kernel_size=(1,), stride=(1,), bias=False)
+        (1): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (2): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (3): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(4,), dilation=(4,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (4): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(8,), dilation=(8,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (5): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(16,), dilation=(16,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (6): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(32,), dilation=(32,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (7): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(64,), dilation=(64,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (8): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(128,), dilation=(128,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+      )
+      (2): Sequential(
+        (0): Conv1d(768, 256, kernel_size=(1,), stride=(1,), bias=False)
+        (1): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (2): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (3): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(4,), dilation=(4,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (4): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(8,), dilation=(8,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (5): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(16,), dilation=(16,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (6): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(32,), dilation=(32,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (7): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(64,), dilation=(64,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (8): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(128,), dilation=(128,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+      )
+      (3): Sequential(
+        (0): Conv1d(768, 256, kernel_size=(1,), stride=(1,), bias=False)
+        (1): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (2): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (3): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(4,), dilation=(4,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (4): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(8,), dilation=(8,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (5): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(16,), dilation=(16,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (6): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(32,), dilation=(32,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (7): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(64,), dilation=(64,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+        (8): TemporalBlock(
+          (net): Sequential(
+            (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+            (1): PReLU(num_parameters=1)
+            (2): GlobalLayerNorm()
+            (3): DepthwiseSeparableConv(
+              (depthwise_conv): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(128,), dilation=(128,), groups=512, bias=False)
+              (prelu): PReLU(num_parameters=1)
+              (norm): GlobalLayerNorm()
+              (pointwise_conv): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+            )
+          )
+        )
+      )
+    )
+    (visual_conv): Sequential(
+      (0): VisualConv1D(
+        (net): Sequential(
+          (0): ReLU()
+          (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+          (3): PReLU(num_parameters=1)
+          (4): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): Conv1d(512, 512, kernel_size=(1,), stride=(1,), bias=False)
+        )
+      )
+      (1): VisualConv1D(
+        (net): Sequential(
+          (0): ReLU()
+          (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+          (3): PReLU(num_parameters=1)
+          (4): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): Conv1d(512, 512, kernel_size=(1,), stride=(1,), bias=False)
+        )
+      )
+      (2): VisualConv1D(
+        (net): Sequential(
+          (0): ReLU()
+          (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+          (3): PReLU(num_parameters=1)
+          (4): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): Conv1d(512, 512, kernel_size=(1,), stride=(1,), bias=False)
+        )
+      )
+      (3): VisualConv1D(
+        (net): Sequential(
+          (0): ReLU()
+          (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+          (3): PReLU(num_parameters=1)
+          (4): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): Conv1d(512, 512, kernel_size=(1,), stride=(1,), bias=False)
+        )
+      )
+      (4): VisualConv1D(
+        (net): Sequential(
+          (0): ReLU()
+          (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+          (3): PReLU(num_parameters=1)
+          (4): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): Conv1d(512, 512, kernel_size=(1,), stride=(1,), bias=False)
+        )
+      )
+    )
+    (ve_conv1x1): ModuleList(
+      (0): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+      (1): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+      (2): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+      (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+    )
+    (ve_conv1x1_SE): ModuleList(
+      (0): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+      (1): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+      (2): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+      (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+    )
+    (se_net): ModuleList(
+      (0): SpeakerEmbedding(
+        (conv_proj): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+        (resnet): ModuleList(
+          (0): Sequential(
+            (0): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): PReLU(num_parameters=1)
+            (3): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (4): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (1): Sequential(
+            (0): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): PReLU(num_parameters=1)
+            (3): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (4): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (2): Sequential(
+            (0): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): PReLU(num_parameters=1)
+            (3): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (4): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (prelu): ModuleList(
+          (0): PReLU(num_parameters=1)
+          (1): PReLU(num_parameters=1)
+          (2): PReLU(num_parameters=1)
+        )
+        (maxPool): ModuleList(
+          (0): AvgPool1d(kernel_size=(3,), stride=(3,), padding=(0,))
+          (1): AvgPool1d(kernel_size=(3,), stride=(3,), padding=(0,))
+          (2): AvgPool1d(kernel_size=(3,), stride=(3,), padding=(0,))
+        )
+        (conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+        (avgPool): AdaptiveAvgPool1d(output_size=1)
+      )
+      (1): SpeakerEmbedding(
+        (conv_proj): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+        (resnet): ModuleList(
+          (0): Sequential(
+            (0): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): PReLU(num_parameters=1)
+            (3): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (4): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (1): Sequential(
+            (0): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): PReLU(num_parameters=1)
+            (3): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (4): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (2): Sequential(
+            (0): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): PReLU(num_parameters=1)
+            (3): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (4): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (prelu): ModuleList(
+          (0): PReLU(num_parameters=1)
+          (1): PReLU(num_parameters=1)
+          (2): PReLU(num_parameters=1)
+        )
+        (maxPool): ModuleList(
+          (0): AvgPool1d(kernel_size=(3,), stride=(3,), padding=(0,))
+          (1): AvgPool1d(kernel_size=(3,), stride=(3,), padding=(0,))
+          (2): AvgPool1d(kernel_size=(3,), stride=(3,), padding=(0,))
+        )
+        (conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+        (avgPool): AdaptiveAvgPool1d(output_size=1)
+      )
+      (2): SpeakerEmbedding(
+        (conv_proj): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+        (resnet): ModuleList(
+          (0): Sequential(
+            (0): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): PReLU(num_parameters=1)
+            (3): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (4): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (1): Sequential(
+            (0): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): PReLU(num_parameters=1)
+            (3): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (4): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (2): Sequential(
+            (0): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): PReLU(num_parameters=1)
+            (3): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (4): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (prelu): ModuleList(
+          (0): PReLU(num_parameters=1)
+          (1): PReLU(num_parameters=1)
+          (2): PReLU(num_parameters=1)
+        )
+        (maxPool): ModuleList(
+          (0): AvgPool1d(kernel_size=(3,), stride=(3,), padding=(0,))
+          (1): AvgPool1d(kernel_size=(3,), stride=(3,), padding=(0,))
+          (2): AvgPool1d(kernel_size=(3,), stride=(3,), padding=(0,))
+        )
+        (conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+        (avgPool): AdaptiveAvgPool1d(output_size=1)
+      )
+      (3): SpeakerEmbedding(
+        (conv_proj): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+        (resnet): ModuleList(
+          (0): Sequential(
+            (0): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): PReLU(num_parameters=1)
+            (3): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (4): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (1): Sequential(
+            (0): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): PReLU(num_parameters=1)
+            (3): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (4): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (2): Sequential(
+            (0): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): PReLU(num_parameters=1)
+            (3): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+            (4): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (prelu): ModuleList(
+          (0): PReLU(num_parameters=1)
+          (1): PReLU(num_parameters=1)
+          (2): PReLU(num_parameters=1)
+        )
+        (maxPool): ModuleList(
+          (0): AvgPool1d(kernel_size=(3,), stride=(3,), padding=(0,))
+          (1): AvgPool1d(kernel_size=(3,), stride=(3,), padding=(0,))
+          (2): AvgPool1d(kernel_size=(3,), stride=(3,), padding=(0,))
+        )
+        (conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+        (avgPool): AdaptiveAvgPool1d(output_size=1)
+      )
+    )
+    (audio_linear): ModuleList(
+      (0): Linear(in_features=256, out_features=800, bias=True)
+      (1): Linear(in_features=256, out_features=800, bias=True)
+      (2): Linear(in_features=256, out_features=800, bias=True)
+      (3): Linear(in_features=256, out_features=800, bias=True)
+    )
+    (mask_conv1x1): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+    (att): ModuleList(
+      (0): AdditiveAttention(
+        (query_proj_a): Linear(in_features=256, out_features=256, bias=False)
+        (key_proj_a): Linear(in_features=256, out_features=256, bias=False)
+        (score_proj_a): Linear(in_features=256, out_features=1, bias=True)
+        (query_proj_v): Linear(in_features=256, out_features=256, bias=False)
+        (key_proj_v): Linear(in_features=256, out_features=256, bias=False)
+        (score_proj_v): Linear(in_features=256, out_features=1, bias=True)
+      )
+      (1): AdditiveAttention(
+        (query_proj_a): Linear(in_features=256, out_features=256, bias=False)
+        (key_proj_a): Linear(in_features=256, out_features=256, bias=False)
+        (score_proj_a): Linear(in_features=256, out_features=1, bias=True)
+        (query_proj_v): Linear(in_features=256, out_features=256, bias=False)
+        (key_proj_v): Linear(in_features=256, out_features=256, bias=False)
+        (score_proj_v): Linear(in_features=256, out_features=1, bias=True)
+      )
+      (2): AdditiveAttention(
+        (query_proj_a): Linear(in_features=256, out_features=256, bias=False)
+        (key_proj_a): Linear(in_features=256, out_features=256, bias=False)
+        (score_proj_a): Linear(in_features=256, out_features=1, bias=True)
+        (query_proj_v): Linear(in_features=256, out_features=256, bias=False)
+        (key_proj_v): Linear(in_features=256, out_features=256, bias=False)
+        (score_proj_v): Linear(in_features=256, out_features=1, bias=True)
+      )
+      (3): AdditiveAttention(
+        (query_proj_a): Linear(in_features=256, out_features=256, bias=False)
+        (key_proj_a): Linear(in_features=256, out_features=256, bias=False)
+        (score_proj_a): Linear(in_features=256, out_features=1, bias=True)
+        (query_proj_v): Linear(in_features=256, out_features=256, bias=False)
+        (key_proj_v): Linear(in_features=256, out_features=256, bias=False)
+        (score_proj_v): Linear(in_features=256, out_features=1, bias=True)
+      )
+    )
+  )
+  (decoder): Decoder(
+    (basis_signals): Linear(in_features=256, out_features=40, bias=False)
+  )
+  (visual_frontend): VisualFrontend(
+    (frontend3D): Sequential(
+      (0): Conv3d(1, 64, kernel_size=(5, 7, 7), stride=(1, 2, 2), padding=(2, 3, 3), bias=False)
+      (1): BatchNorm3d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+      (2): ReLU()
+      (3): MaxPool3d(kernel_size=(1, 3, 3), stride=(1, 2, 2), padding=(0, 1, 1), dilation=1, ceil_mode=False)
+    )
+    (resnet): ResNet(
+      (layer1): ResNetLayer(
+        (conv1a): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn1a): BatchNorm2d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (conv2a): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (downsample): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (outbna): BatchNorm2d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (conv1b): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn1b): BatchNorm2d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (conv2b): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (outbnb): BatchNorm2d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+      )
+      (layer2): ResNetLayer(
+        (conv1a): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn1a): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (conv2a): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (downsample): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (outbna): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (conv1b): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn1b): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (conv2b): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (outbnb): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+      )
+      (layer3): ResNetLayer(
+        (conv1a): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn1a): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (conv2a): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (downsample): Conv2d(128, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (outbna): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (conv1b): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn1b): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (conv2b): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (outbnb): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+      )
+      (layer4): ResNetLayer(
+        (conv1a): Conv2d(256, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn1a): BatchNorm2d(512, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (conv2a): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (downsample): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (outbna): BatchNorm2d(512, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (conv1b): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn1b): BatchNorm2d(512, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (conv2b): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (outbnb): BatchNorm2d(512, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+      )
+      (avgpool): AvgPool2d(kernel_size=(4, 4), stride=(1, 1), padding=0)
+    )
+  )
+)
+Selected optimization level O0:  Pure FP32 training.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O0
+cast_model_type        : torch.float32
+patch_torch_functions  : False
+keep_batchnorm_fp32    : None
+master_weights         : False
+loss_scale             : 1.0
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O0
+cast_model_type        : torch.float32
+patch_torch_functions  : False
+keep_batchnorm_fp32    : None
+master_weights         : False
+loss_scale             : 1.0
+Warning:  multi_tensor_applier fused unscale kernel is unavailable, possibly because apex was installed without --cuda_ext --cpp_ext. Using Python fallback.  Original ImportError was: ModuleNotFoundError("No module named 'amp_C'")
+Warning:  apex was installed without --cpp_ext.  Falling back to Python flatten and unflatten.
+Warning:  apex was installed without --cpp_ext.  Falling back to Python flatten and unflatten.
+Start new training
+step:1/1667 avg loss:-9.725
+step:1/1667 avg loss:-8.659
+step:1001/1667 avg loss:-11.510
+step:1001/1667 avg loss:-11.470
+Train Summary | End of Epoch 1 | Time 2515.69s | Current time 2024-02-21 16:40:02.674146 |Train Loss -11.652| 
+step:1/417 avg loss:-7.976
+step:1/417 avg loss:-10.544
+step:101/417 avg loss:-8.680
+step:101/417 avg loss:-8.793
+step:201/417 avg loss:-8.636
+step:201/417 avg loss:-8.664
+step:301/417 avg loss:-8.648
+step:301/417 avg loss:-8.711
+step:401/417 avg loss:-8.719
+step:401/417 avg loss:-8.793
+Valid Summary | End of Epoch 1 | Time 423.77s | Current time 2024-02-21 16:47:06.444645 |Valid Loss -8.757| 
+Fund new best model, dict saved
+step:1/1667 avg loss:-13.970
+step:1/1667 avg loss:-11.764
+step:1001/1667 avg loss:-11.975
+step:1001/1667 avg loss:-11.803
+Train Summary | End of Epoch 2 | Time 2481.72s | Current time 2024-02-21 17:28:30.525072 |Train Loss -11.916| 
+step:1/417 avg loss:-10.249
+step:1/417 avg loss:-10.741
+step:101/417 avg loss:-9.015
+step:101/417 avg loss:-8.457
+step:201/417 avg loss:-8.568
+step:201/417 avg loss:-8.859
+step:301/417 avg loss:-8.826
+step:301/417 avg loss:-9.025
+step:401/417 avg loss:-8.951
+step:401/417 avg loss:-9.093
+Valid Summary | End of Epoch 2 | Time 423.50s | Current time 2024-02-21 17:35:34.022337 |Valid Loss -9.047| 
+Fund new best model, dict saved
+step:1/1667 avg loss:-11.920
+step:1/1667 avg loss:-13.891
+step:1001/1667 avg loss:-12.182
+step:1001/1667 avg loss:-12.023
+Train Summary | End of Epoch 3 | Time 2479.25s | Current time 2024-02-21 18:16:55.561814 |Train Loss -12.132| 
+step:1/417 avg loss:-6.636
+step:1/417 avg loss:-10.544
+step:101/417 avg loss:-8.736
+step:101/417 avg loss:-9.400
+step:201/417 avg loss:-8.807
+step:201/417 avg loss:-9.002
+step:301/417 avg loss:-8.914
+step:301/417 avg loss:-8.977
+step:401/417 avg loss:-8.986
+step:401/417 avg loss:-9.114
+Valid Summary | End of Epoch 3 | Time 421.98s | Current time 2024-02-21 18:23:57.547656 |Valid Loss -9.076| 
+Fund new best model, dict saved
+step:1/1667 avg loss:-12.877
+step:1/1667 avg loss:-12.570
+step:1001/1667 avg loss:-12.316
+step:1001/1667 avg loss:-12.187
+Train Summary | End of Epoch 4 | Time 2475.40s | Current time 2024-02-21 19:05:15.012592 |Train Loss -12.228| 
+step:1/417 avg loss:-8.877
+step:1/417 avg loss:-11.200
+step:101/417 avg loss:-8.981
+step:101/417 avg loss:-9.139
+step:201/417 avg loss:-9.071
+step:201/417 avg loss:-8.909
+step:301/417 avg loss:-9.354
+step:301/417 avg loss:-9.012
+step:401/417 avg loss:-9.442
+step:401/417 avg loss:-9.218
+Valid Summary | End of Epoch 4 | Time 422.72s | Current time 2024-02-21 19:12:17.732723 |Valid Loss -9.358| 
+Fund new best model, dict saved
+step:1/1667 avg loss:-13.347
+step:1/1667 avg loss:-14.234
+step:1001/1667 avg loss:-12.271
+step:1001/1667 avg loss:-12.234
+Train Summary | End of Epoch 5 | Time 2478.84s | Current time 2024-02-21 19:53:40.413074 |Train Loss -12.265| 
+step:1/417 avg loss:-8.385
+step:1/417 avg loss:-11.683
+step:101/417 avg loss:-9.196
+step:101/417 avg loss:-8.870
+step:201/417 avg loss:-8.758
+step:201/417 avg loss:-8.772
+step:301/417 avg loss:-8.979
+step:301/417 avg loss:-8.961
+step:401/417 avg loss:-9.186
+step:401/417 avg loss:-9.064
+Valid Summary | End of Epoch 5 | Time 418.51s | Current time 2024-02-21 20:00:38.924510 |Valid Loss -9.151| 
+step:1/1667 avg loss:-14.119
+step:1/1667 avg loss:-12.446
+step:1001/1667 avg loss:-12.474
+step:1001/1667 avg loss:-12.374
+Train Summary | End of Epoch 6 | Time 2481.90s | Current time 2024-02-21 20:42:03.154235 |Train Loss -12.405| 
+step:1/417 avg loss:-8.404
+step:1/417 avg loss:-10.266
+step:101/417 avg loss:-8.829
+step:101/417 avg loss:-9.441
+step:201/417 avg loss:-8.904
+step:201/417 avg loss:-9.318
+step:301/417 avg loss:-9.044
+step:301/417 avg loss:-9.364
+step:401/417 avg loss:-9.163
+step:401/417 avg loss:-9.420
+Valid Summary | End of Epoch 6 | Time 418.91s | Current time 2024-02-21 20:49:02.063218 |Valid Loss -9.300| 
+step:1/1667 avg loss:-13.170
+step:1/1667 avg loss:-13.355
+step:1001/1667 avg loss:-12.538
+step:1001/1667 avg loss:-12.440
+Train Summary | End of Epoch 7 | Time 2486.61s | Current time 2024-02-21 21:30:30.685105 |Train Loss -12.479| 
+step:1/417 avg loss:-9.163
+step:1/417 avg loss:-1.626
+step:101/417 avg loss:-8.837
+step:101/417 avg loss:-9.073
+step:201/417 avg loss:-8.846
+step:201/417 avg loss:-8.946
+step:301/417 avg loss:-8.983
+step:301/417 avg loss:-8.980
+step:401/417 avg loss:-9.135
+step:401/417 avg loss:-9.166
+Valid Summary | End of Epoch 7 | Time 420.21s | Current time 2024-02-21 21:37:30.897017 |Valid Loss -9.182| 
+step:1/1667 avg loss:-13.638
+step:1/1667 avg loss:-11.600
+step:1001/1667 avg loss:-12.608
+step:1001/1667 avg loss:-12.575
+Train Summary | End of Epoch 8 | Time 2490.41s | Current time 2024-02-21 22:19:02.555751 |Train Loss -12.574| 
+step:1/417 avg loss:-12.410
+step:1/417 avg loss:-10.445
+step:101/417 avg loss:-8.941
+step:101/417 avg loss:-9.021
+step:201/417 avg loss:-8.883
+step:201/417 avg loss:-9.011
+step:301/417 avg loss:-9.080
+step:301/417 avg loss:-9.110
+step:401/417 avg loss:-9.303
+step:401/417 avg loss:-9.210
+Valid Summary | End of Epoch 8 | Time 422.51s | Current time 2024-02-21 22:26:05.064160 |Valid Loss -9.279| 
+step:1/1667 avg loss:-14.131
+step:1/1667 avg loss:-10.397
+step:1001/1667 avg loss:-12.605
+step:1001/1667 avg loss:-12.642
+Train Summary | End of Epoch 9 | Time 2550.59s | Current time 2024-02-21 23:08:37.043576 |Train Loss -12.634| 
+step:1/417 avg loss:-10.099
+step:1/417 avg loss:-12.582
+step:101/417 avg loss:-9.247
+step:101/417 avg loss:-8.855
+step:201/417 avg loss:-9.143
+step:201/417 avg loss:-8.884
+step:301/417 avg loss:-9.131
+step:301/417 avg loss:-9.250
+step:401/417 avg loss:-9.327
+step:401/417 avg loss:-9.389
+Valid Summary | End of Epoch 9 | Time 438.21s | Current time 2024-02-21 23:15:55.252034 |Valid Loss -9.371| 
+Fund new best model, dict saved
+step:1/1667 avg loss:-11.524
+step:1/1667 avg loss:-13.007
+step:1001/1667 avg loss:-12.621
+step:1001/1667 avg loss:-12.622
+Train Summary | End of Epoch 10 | Time 2589.70s | Current time 2024-02-21 23:59:07.668215 |Train Loss -12.638| 
+step:1/417 avg loss:-8.190
+step:1/417 avg loss:-11.173
+step:101/417 avg loss:-9.013
+step:101/417 avg loss:-9.239
+step:201/417 avg loss:-9.088
+step:201/417 avg loss:-9.034
+step:301/417 avg loss:-9.022
+step:301/417 avg loss:-9.043
+step:401/417 avg loss:-9.200
+step:401/417 avg loss:-9.007
+Valid Summary | End of Epoch 10 | Time 435.91s | Current time 2024-02-22 00:06:23.581765 |Valid Loss -9.162| 
+step:1/1667 avg loss:-13.762
+step:1/1667 avg loss:-14.005
+step:1001/1667 avg loss:-12.635
+step:1001/1667 avg loss:-12.669
+Train Summary | End of Epoch 11 | Time 2533.22s | Current time 2024-02-22 00:48:40.657531 |Train Loss -12.651| 
+step:1/417 avg loss:-1.502
+step:1/417 avg loss:-11.152
+step:101/417 avg loss:-9.019
+step:101/417 avg loss:-9.243
+step:201/417 avg loss:-9.153
+step:201/417 avg loss:-9.023
+step:301/417 avg loss:-9.432
+step:301/417 avg loss:-9.106
+step:401/417 avg loss:-9.537
+step:401/417 avg loss:-9.248
+Valid Summary | End of Epoch 11 | Time 417.26s | Current time 2024-02-22 00:55:37.917750 |Valid Loss -9.410| 
+Fund new best model, dict saved
+step:1/1667 avg loss:-14.571
+step:1/1667 avg loss:-14.239
+step:1001/1667 avg loss:-12.643
+step:1001/1667 avg loss:-12.694
+Train Summary | End of Epoch 12 | Time 2510.66s | Current time 2024-02-22 01:37:34.246849 |Train Loss -12.709| 
+step:1/417 avg loss:-9.441
+step:1/417 avg loss:-8.914
+step:101/417 avg loss:-9.611
+step:101/417 avg loss:-9.416
+step:201/417 avg loss:-9.206
+step:201/417 avg loss:-9.098
+step:301/417 avg loss:-9.212
+step:301/417 avg loss:-9.228
+step:401/417 avg loss:-9.390
+step:401/417 avg loss:-9.308
+Valid Summary | End of Epoch 12 | Time 415.50s | Current time 2024-02-22 01:44:29.748314 |Valid Loss -9.382| 
+step:1/1667 avg loss:-12.150
+step:1/1667 avg loss:-13.654
+step:1001/1667 avg loss:-12.760
+step:1001/1667 avg loss:-12.759
+Train Summary | End of Epoch 13 | Time 2526.22s | Current time 2024-02-22 02:26:37.697229 |Train Loss -12.770| 
+step:1/417 avg loss:-7.208
+step:1/417 avg loss:-10.702
+step:101/417 avg loss:-8.823
+step:101/417 avg loss:-9.731
+step:201/417 avg loss:-8.845
+step:201/417 avg loss:-9.277
+step:301/417 avg loss:-8.954
+step:301/417 avg loss:-9.315
+step:401/417 avg loss:-9.076
+step:401/417 avg loss:-9.432
+Valid Summary | End of Epoch 13 | Time 416.48s | Current time 2024-02-22 02:33:34.180503 |Valid Loss -9.277| 
+step:1/1667 avg loss:-12.567
+step:1/1667 avg loss:-13.574
+step:1001/1667 avg loss:-12.799
+step:1001/1667 avg loss:-12.905
+Train Summary | End of Epoch 14 | Time 2523.02s | Current time 2024-02-22 03:15:39.565285 |Train Loss -12.780| 
+step:1/417 avg loss:-10.527
+step:1/417 avg loss:-11.568
+step:101/417 avg loss:-9.292
+step:101/417 avg loss:-9.402
+step:201/417 avg loss:-9.235
+step:201/417 avg loss:-9.047
+step:301/417 avg loss:-9.330
+step:301/417 avg loss:-9.156
+step:401/417 avg loss:-9.370
+step:401/417 avg loss:-9.310
+Valid Summary | End of Epoch 14 | Time 417.17s | Current time 2024-02-22 03:22:36.734479 |Valid Loss -9.371| 
+step:1/1667 avg loss:-10.521
+step:1/1667 avg loss:-11.674
+step:1001/1667 avg loss:-12.790
+step:1001/1667 avg loss:-12.753
+Train Summary | End of Epoch 15 | Time 2523.75s | Current time 2024-02-22 04:04:42.606302 |Train Loss -12.791| 
+step:1/417 avg loss:-11.735
+step:1/417 avg loss:-7.708
+step:101/417 avg loss:-9.652
+step:101/417 avg loss:-8.791
+step:201/417 avg loss:-8.876
+step:201/417 avg loss:-9.206
+step:301/417 avg loss:-9.134
+step:301/417 avg loss:-9.272
+step:401/417 avg loss:-9.187
+step:401/417 avg loss:-9.401
+Valid Summary | End of Epoch 15 | Time 415.29s | Current time 2024-02-22 04:11:37.898840 |Valid Loss -9.316| 
+step:1/1667 avg loss:-12.452
+step:1/1667 avg loss:-12.535
+step:1001/1667 avg loss:-12.785
+step:1001/1667 avg loss:-12.851
+Train Summary | End of Epoch 16 | Time 2516.77s | Current time 2024-02-22 04:53:39.350382 |Train Loss -12.813| 
+step:1/417 avg loss:-5.506
+step:1/417 avg loss:-11.259
+step:101/417 avg loss:-9.108
+step:101/417 avg loss:-9.182
+step:201/417 avg loss:-9.220
+step:201/417 avg loss:-9.148
+step:301/417 avg loss:-9.251
+step:301/417 avg loss:-9.214
+step:401/417 avg loss:-9.342
+step:401/417 avg loss:-9.151
+Valid Summary | End of Epoch 16 | Time 416.84s | Current time 2024-02-22 05:00:36.196133 |Valid Loss -9.284| 
+step:1/1667 avg loss:-12.878
+step:1/1667 avg loss:-13.205
+step:1001/1667 avg loss:-12.963
+step:1001/1667 avg loss:-12.784
+Train Summary | End of Epoch 17 | Time 2516.35s | Current time 2024-02-22 05:42:34.560121 |Train Loss -12.843| 
+step:1/417 avg loss:-8.004
+step:1/417 avg loss:-11.161
+step:101/417 avg loss:-9.187
+step:101/417 avg loss:-9.181
+step:201/417 avg loss:-9.129
+step:201/417 avg loss:-8.835
+step:301/417 avg loss:-9.114
+step:301/417 avg loss:-9.089
+step:401/417 avg loss:-9.225
+step:401/417 avg loss:-9.239
+Valid Summary | End of Epoch 17 | Time 415.78s | Current time 2024-02-22 05:49:30.341012 |Valid Loss -9.241| 
+Learning rate adjusted to: 0.000050
+step:1/1667 avg loss:-12.127
+step:1/1667 avg loss:-12.483
+step:1001/1667 avg loss:-12.938
+step:1001/1667 avg loss:-12.948
+Train Summary | End of Epoch 18 | Time 2516.31s | Current time 2024-02-22 06:31:28.729497 |Train Loss -12.881| 
+step:1/417 avg loss:-7.854
+step:1/417 avg loss:-11.064
+step:101/417 avg loss:-9.575
+step:101/417 avg loss:-8.934
+step:201/417 avg loss:-9.062
+step:201/417 avg loss:-9.464
+step:301/417 avg loss:-9.233
+step:301/417 avg loss:-9.359
+step:401/417 avg loss:-9.294
+step:401/417 avg loss:-9.422
+Valid Summary | End of Epoch 18 | Time 414.88s | Current time 2024-02-22 06:38:23.611049 |Valid Loss -9.374| 
+step:1/1667 avg loss:-14.370
+step:1/1667 avg loss:-14.617
+step:1001/1667 avg loss:-12.947
+step:1001/1667 avg loss:-12.896
+Train Summary | End of Epoch 19 | Time 2517.95s | Current time 2024-02-22 07:20:23.156063 |Train Loss -12.933| 
+step:1/417 avg loss:-12.202
+step:1/417 avg loss:-9.044
+step:101/417 avg loss:-8.998
+step:101/417 avg loss:-9.232
+step:201/417 avg loss:-8.926
+step:201/417 avg loss:-8.941
+step:301/417 avg loss:-9.024
+step:301/417 avg loss:-8.885
+step:401/417 avg loss:-9.171
+step:401/417 avg loss:-9.113
+Valid Summary | End of Epoch 19 | Time 417.11s | Current time 2024-02-22 07:27:20.266896 |Valid Loss -9.159| 
+step:1/1667 avg loss:-12.635
+step:1/1667 avg loss:-14.183
+step:1001/1667 avg loss:-13.009
+step:1001/1667 avg loss:-12.943
+Train Summary | End of Epoch 20 | Time 2522.67s | Current time 2024-02-22 08:09:24.180447 |Train Loss -12.968| 
+step:1/417 avg loss:-5.435
+step:1/417 avg loss:-10.718
+step:101/417 avg loss:-9.545
+step:101/417 avg loss:-9.295
+step:201/417 avg loss:-9.192
+step:201/417 avg loss:-9.397
+step:301/417 avg loss:-9.364
+step:301/417 avg loss:-9.297
+step:401/417 avg loss:-9.507
+step:401/417 avg loss:-9.312
+Valid Summary | End of Epoch 20 | Time 415.87s | Current time 2024-02-22 08:16:20.049665 |Valid Loss -9.433| 
+Fund new best model, dict saved
+step:1/1667 avg loss:-11.845
+step:1/1667 avg loss:-3.471
+step:1001/1667 avg loss:-13.016
+step:1001/1667 avg loss:-12.956
+Train Summary | End of Epoch 21 | Time 2524.47s | Current time 2024-02-22 08:58:29.477769 |Train Loss -12.970| 
+step:1/417 avg loss:-11.224
+step:1/417 avg loss:-10.377
+step:101/417 avg loss:-9.081
+step:101/417 avg loss:-9.071
+step:201/417 avg loss:-9.054
+step:201/417 avg loss:-8.882
+step:301/417 avg loss:-9.336
+step:301/417 avg loss:-8.856
+step:401/417 avg loss:-9.498
+step:401/417 avg loss:-9.053
+Valid Summary | End of Epoch 21 | Time 417.14s | Current time 2024-02-22 09:05:26.621684 |Valid Loss -9.329| 
+step:1/1667 avg loss:-13.306
+step:1/1667 avg loss:-14.488
+step:1001/1667 avg loss:-12.944
+step:1001/1667 avg loss:-12.981
+Train Summary | End of Epoch 22 | Time 2516.50s | Current time 2024-02-22 09:47:24.327731 |Train Loss -12.978| 
+step:1/417 avg loss:-8.127
+step:1/417 avg loss:-9.058
+step:101/417 avg loss:-9.487
+step:101/417 avg loss:-8.787
+step:201/417 avg loss:-8.997
+step:201/417 avg loss:-9.105
+step:301/417 avg loss:-9.143
+step:301/417 avg loss:-9.222
+step:401/417 avg loss:-9.311
+step:401/417 avg loss:-9.374
+Valid Summary | End of Epoch 22 | Time 416.17s | Current time 2024-02-22 09:54:20.502980 |Valid Loss -9.382| 
+step:1/1667 avg loss:-14.665
+step:1/1667 avg loss:-13.380
+step:1001/1667 avg loss:-12.964
+step:1001/1667 avg loss:-12.922
+Train Summary | End of Epoch 23 | Time 2526.54s | Current time 2024-02-22 10:36:28.630255 |Train Loss -12.968| 
+step:1/417 avg loss:-8.911
+step:1/417 avg loss:-11.882
+step:101/417 avg loss:-9.656
+step:101/417 avg loss:-8.804
+step:201/417 avg loss:-9.002
+step:201/417 avg loss:-9.256
+step:301/417 avg loss:-9.074
+step:301/417 avg loss:-9.229
+step:401/417 avg loss:-9.215
+step:401/417 avg loss:-9.300
+Valid Summary | End of Epoch 23 | Time 414.48s | Current time 2024-02-22 10:43:23.112757 |Valid Loss -9.301| 
+step:1/1667 avg loss:-13.215
+step:1/1667 avg loss:-14.708
+step:1001/1667 avg loss:-13.037
+step:1001/1667 avg loss:-12.977
+Train Summary | End of Epoch 24 | Time 2527.17s | Current time 2024-02-22 11:25:32.173866 |Train Loss -12.998| 
+step:1/417 avg loss:-8.926
+step:1/417 avg loss:-9.178
+step:101/417 avg loss:-8.906
+step:101/417 avg loss:-9.340
+step:201/417 avg loss:-8.996
+step:201/417 avg loss:-9.050
+step:301/417 avg loss:-8.975
+step:301/417 avg loss:-9.080
+step:401/417 avg loss:-9.084
+step:401/417 avg loss:-9.212
+Valid Summary | End of Epoch 24 | Time 413.77s | Current time 2024-02-22 11:32:25.941148 |Valid Loss -9.170| 
+step:1/1667 avg loss:-13.039
+step:1/1667 avg loss:-14.216
+step:1001/1667 avg loss:-13.039
+step:1001/1667 avg loss:-13.079
+Train Summary | End of Epoch 25 | Time 2509.33s | Current time 2024-02-22 12:14:17.292397 |Train Loss -13.064| 
+step:1/417 avg loss:-12.015
+step:1/417 avg loss:-8.371
+step:101/417 avg loss:-9.125
+step:101/417 avg loss:-9.317
+step:201/417 avg loss:-9.210
+step:201/417 avg loss:-9.216
+step:301/417 avg loss:-9.390
+step:301/417 avg loss:-9.260
+step:401/417 avg loss:-9.416
+step:401/417 avg loss:-9.425
+Valid Summary | End of Epoch 25 | Time 416.40s | Current time 2024-02-22 12:21:13.693150 |Valid Loss -9.453| 
+Fund new best model, dict saved
+step:1/1667 avg loss:-13.943
+step:1/1667 avg loss:-7.679
+step:1001/1667 avg loss:-13.095
+step:1001/1667 avg loss:-12.992
+Train Summary | End of Epoch 26 | Time 2533.73s | Current time 2024-02-22 13:03:32.974568 |Train Loss -13.061| 
+step:1/417 avg loss:-11.166
+step:1/417 avg loss:-12.523
+step:101/417 avg loss:-9.243
+step:101/417 avg loss:-9.337
+step:201/417 avg loss:-9.223
+step:201/417 avg loss:-9.026
+step:301/417 avg loss:-9.203
+step:301/417 avg loss:-9.144
+step:401/417 avg loss:-9.318
+step:401/417 avg loss:-9.219
+Valid Summary | End of Epoch 26 | Time 415.67s | Current time 2024-02-22 13:10:28.650706 |Valid Loss -9.276| 
+step:1/1667 avg loss:-13.777
+step:1/1667 avg loss:-14.919
+step:1001/1667 avg loss:-12.994
+step:1001/1667 avg loss:-13.042
+Train Summary | End of Epoch 27 | Time 2514.52s | Current time 2024-02-22 13:52:24.882521 |Train Loss -13.037| 
+step:1/417 avg loss:-5.647
+step:1/417 avg loss:-8.992
+step:101/417 avg loss:-9.248
+step:101/417 avg loss:-9.797
+step:201/417 avg loss:-9.313
+step:201/417 avg loss:-9.486
+step:301/417 avg loss:-9.372
+step:301/417 avg loss:-9.451
+step:401/417 avg loss:-9.453
+step:401/417 avg loss:-9.519
+Valid Summary | End of Epoch 27 | Time 415.75s | Current time 2024-02-22 13:59:20.634295 |Valid Loss -9.503| 
+Fund new best model, dict saved
+step:1/1667 avg loss:-11.386
+step:1/1667 avg loss:-11.941
+step:1001/1667 avg loss:-13.100
+step:1001/1667 avg loss:-13.141
+Train Summary | End of Epoch 28 | Time 2524.01s | Current time 2024-02-22 14:41:26.657662 |Train Loss -13.051| 
+step:1/417 avg loss:-11.444
+step:1/417 avg loss:-11.993
+step:101/417 avg loss:-9.032
+step:101/417 avg loss:-9.489
+step:201/417 avg loss:-9.377
+step:201/417 avg loss:-9.087
+step:301/417 avg loss:-9.500
+step:301/417 avg loss:-9.176
+step:401/417 avg loss:-9.629
+step:401/417 avg loss:-9.331
+Valid Summary | End of Epoch 28 | Time 414.49s | Current time 2024-02-22 14:48:21.153216 |Valid Loss -9.475| 
+step:1/1667 avg loss:-12.029
+step:1/1667 avg loss:-12.865
+step:1001/1667 avg loss:-12.970
+step:1001/1667 avg loss:-13.081
+Train Summary | End of Epoch 29 | Time 2517.06s | Current time 2024-02-22 15:30:19.512600 |Train Loss -13.053| 
+step:1/417 avg loss:-12.152
+step:1/417 avg loss:-11.031
+step:101/417 avg loss:-8.854
+step:101/417 avg loss:-9.757
+step:201/417 avg loss:-8.971
+step:201/417 avg loss:-9.037
+step:301/417 avg loss:-9.182
+step:301/417 avg loss:-9.218
+step:401/417 avg loss:-9.333
+step:401/417 avg loss:-9.299
+Valid Summary | End of Epoch 29 | Time 413.51s | Current time 2024-02-22 15:37:13.024199 |Valid Loss -9.340| 
+step:1/1667 avg loss:-15.159
+step:1/1667 avg loss:-15.321
+step:1001/1667 avg loss:-13.147
+step:1001/1667 avg loss:-13.015
+Train Summary | End of Epoch 30 | Time 2524.89s | Current time 2024-02-22 16:19:19.786475 |Train Loss -13.057| 
+step:1/417 avg loss:-12.402
+step:1/417 avg loss:-6.517
+step:101/417 avg loss:-9.360
+step:101/417 avg loss:-9.353
+step:201/417 avg loss:-9.284
+step:201/417 avg loss:-9.063
+step:301/417 avg loss:-9.362
+step:301/417 avg loss:-9.111
+step:401/417 avg loss:-9.417
+step:401/417 avg loss:-9.312
+Valid Summary | End of Epoch 30 | Time 413.67s | Current time 2024-02-22 16:26:13.455404 |Valid Loss -9.399| 
+step:1/1667 avg loss:-12.813
+step:1/1667 avg loss:-13.513
+step:1001/1667 avg loss:-13.112
+step:1001/1667 avg loss:-13.193
+Train Summary | End of Epoch 31 | Time 2515.29s | Current time 2024-02-22 17:08:11.263001 |Train Loss -13.132| 
+step:1/417 avg loss:-10.673
+step:1/417 avg loss:-9.610
+step:101/417 avg loss:-9.003
+step:101/417 avg loss:-9.394
+step:201/417 avg loss:-8.981
+step:201/417 avg loss:-8.968
+step:301/417 avg loss:-9.169
+step:301/417 avg loss:-9.123
+step:401/417 avg loss:-9.126
+step:401/417 avg loss:-9.275
+Valid Summary | End of Epoch 31 | Time 416.63s | Current time 2024-02-22 17:15:07.893052 |Valid Loss -9.235| 
+step:1/1667 avg loss:-12.975
+step:1/1667 avg loss:-13.074
+step:1001/1667 avg loss:-13.157
+step:1001/1667 avg loss:-13.088
+Train Summary | End of Epoch 32 | Time 2512.14s | Current time 2024-02-22 17:57:01.469416 |Train Loss -13.095| 
+step:1/417 avg loss:-11.722
+step:1/417 avg loss:-10.893
+step:101/417 avg loss:-9.318
+step:101/417 avg loss:-9.075
+step:201/417 avg loss:-9.068
+step:201/417 avg loss:-9.189
+step:301/417 avg loss:-9.076
+step:301/417 avg loss:-9.078
+step:401/417 avg loss:-9.227
+step:401/417 avg loss:-9.063
+Valid Summary | End of Epoch 32 | Time 414.79s | Current time 2024-02-22 18:03:56.259733 |Valid Loss -9.172| 
+step:1/1667 avg loss:-13.262
+step:1/1667 avg loss:-14.093
+step:1001/1667 avg loss:-13.095
+step:1001/1667 avg loss:-13.140
+Train Summary | End of Epoch 33 | Time 2517.11s | Current time 2024-02-22 18:45:54.625124 |Train Loss -13.140| 
+step:1/417 avg loss:-8.293
+step:1/417 avg loss:-9.123
+step:101/417 avg loss:-9.302
+step:101/417 avg loss:-9.591
+step:201/417 avg loss:-9.294
+step:201/417 avg loss:-9.359
+step:301/417 avg loss:-9.192
+step:301/417 avg loss:-9.196
+step:401/417 avg loss:-9.411
+step:401/417 avg loss:-9.390
+Valid Summary | End of Epoch 33 | Time 415.03s | Current time 2024-02-22 18:52:49.656543 |Valid Loss -9.409| 
+Learning rate adjusted to: 0.000025
+step:1/1667 avg loss:-12.096
+step:1/1667 avg loss:-13.136
+step:1001/1667 avg loss:-13.127
+step:1001/1667 avg loss:-13.177
+Train Summary | End of Epoch 34 | Time 2529.50s | Current time 2024-02-22 19:35:00.647706 |Train Loss -13.167| 
+step:1/417 avg loss:-10.176
+step:1/417 avg loss:-11.042
+step:101/417 avg loss:-9.233
+step:101/417 avg loss:-9.380
+step:201/417 avg loss:-9.079
+step:201/417 avg loss:-9.129
+step:301/417 avg loss:-9.096
+step:301/417 avg loss:-9.081
+step:401/417 avg loss:-9.197
+step:401/417 avg loss:-9.117
+Valid Summary | End of Epoch 34 | Time 416.21s | Current time 2024-02-22 19:41:56.863065 |Valid Loss -9.159| 
+step:1/1667 avg loss:-12.090
+step:1/1667 avg loss:-12.077
+step:1001/1667 avg loss:-13.115
+step:1001/1667 avg loss:-13.120
+Train Summary | End of Epoch 35 | Time 2518.88s | Current time 2024-02-22 20:23:57.504411 |Train Loss -13.147| 
+step:1/417 avg loss:4.964
+step:1/417 avg loss:-11.348
+step:101/417 avg loss:-9.308
+step:101/417 avg loss:-9.516
+step:201/417 avg loss:-9.027
+step:201/417 avg loss:-9.172
+step:301/417 avg loss:-9.149
+step:301/417 avg loss:-9.242
+step:401/417 avg loss:-9.224
+step:401/417 avg loss:-9.305
+Valid Summary | End of Epoch 35 | Time 414.33s | Current time 2024-02-22 20:30:51.837585 |Valid Loss -9.255| 
+step:1/1667 avg loss:-12.629
+step:1/1667 avg loss:-14.385
+step:1001/1667 avg loss:-13.134
+step:1001/1667 avg loss:-13.251
+Train Summary | End of Epoch 36 | Time 2522.33s | Current time 2024-02-22 21:12:57.839769 |Train Loss -13.181| 
+step:1/417 avg loss:-8.378
+step:1/417 avg loss:-11.974
+step:101/417 avg loss:-9.206
+step:101/417 avg loss:-9.516
+step:201/417 avg loss:-9.179
+step:201/417 avg loss:-9.208
+step:301/417 avg loss:-9.301
+step:301/417 avg loss:-8.954
+step:401/417 avg loss:-9.381
+step:401/417 avg loss:-9.170
+Valid Summary | End of Epoch 36 | Time 414.48s | Current time 2024-02-22 21:19:52.318934 |Valid Loss -9.291| 
+step:1/1667 avg loss:-5.390
+step:1/1667 avg loss:-14.325
+step:1001/1667 avg loss:-13.156
+step:1001/1667 avg loss:-13.213
+Train Summary | End of Epoch 37 | Time 2510.52s | Current time 2024-02-22 22:01:44.680296 |Train Loss -13.208| 
+step:1/417 avg loss:-9.291
+step:1/417 avg loss:-11.728
+step:101/417 avg loss:-9.054
+step:101/417 avg loss:-9.478
+step:201/417 avg loss:-9.144
+step:201/417 avg loss:-9.275
+step:301/417 avg loss:-9.260
+step:301/417 avg loss:-9.285
+step:401/417 avg loss:-9.305
+step:401/417 avg loss:-9.472
+Valid Summary | End of Epoch 37 | Time 415.70s | Current time 2024-02-22 22:08:40.384881 |Valid Loss -9.404| 
+No imporvement for 10 epochs, early stopping.
